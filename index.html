@@ -16,14 +16,17 @@
         <div class="left_section box">
           <h3>Form Inputs</h3>
           <div class="poke_pic box"></div> pic of pokemon
-            <label for="pokemon-name">Pokemon Name</label>
+          <div class="box">
+            <label for="pokemon-name">Pokemon Name:</label>
             <input id="pokemon-name" type="text">
             <button onclick="getPokemonStats()">Search</button>
+          </div>
           </form>
         </div>
         <div class="right_section box">
           <h3>Stats</h3>
             <canvas id="myChart"></canvas>
+            <div id="error-message"></div>
       </div>
     </div>
     <footer class="footer"><a href="http://github.com/BenjiZheng/" target="_blank" rel="noopener noreferrer">BenjiZheng</a></footer>
