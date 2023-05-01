@@ -1,13 +1,27 @@
+let myChart = null;
+
 function getPokemonStats() {
+
     const pokemonName = document.getElementById('pokemon-name').value;
 
+    if (myChart !== null) {
+      myChart.destroy();
+    }
+
+    document.getElementById('error-message').innerHTML = '';
+
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Pokemon not found.');
+        }
+        return response.json();
+      })
       .then(data => {
         const stats = data.stats.map(stat => stat.base_stat);
 
         const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
+        myChart = new Chart(ctx, {
           type: 'bar',
           data: {
             labels: ['HP', 'Attack', 'Defense', 'Special Attack', 'Special Defense', 'Speed'],
@@ -28,5 +42,8 @@ function getPokemonStats() {
           }
         });
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error(error);
+        document.getElementById('error-message').innerHTML = error.message;
+      });
   }
