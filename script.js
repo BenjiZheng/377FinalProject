@@ -1,4 +1,5 @@
 let myChart = null;
+let pokemonData = [];
 
 function getPokemonStats() {
 
@@ -41,6 +42,20 @@ function getPokemonStats() {
             }
           }
         });
+        const pokeImageData = data.sprites.front_default;
+        const pokeImg = document.createElement('img');
+        pokeImg.setAttribute('src', pokeImageData);
+        pokeImg.setAttribute('alt', pokemonName);
+        document.getElementById('pokepic').innerHTML = '';
+        document.getElementById('pokepic').appendChild(pokeImg);
+
+        const storedpokeData = {
+          name: pokemonName,
+          stats: stats,
+          imageUrl: pokeImageData
+        };
+        pokemonData.push(storedpokeData);
+        localStorage.setItem('pokemonData', JSON.stringify(pokemonData));
       })
       .catch(error => {
         console.error(error);
